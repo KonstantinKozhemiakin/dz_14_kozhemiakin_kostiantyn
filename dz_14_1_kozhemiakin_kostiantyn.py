@@ -37,6 +37,8 @@ class Tree:
 
     def add_elements(self, list_of_node):
         for node in list_of_node:
+            if node is None:
+                continue
             self.insert(node)
 
     def find_min(self):
@@ -52,25 +54,26 @@ class Tree:
             return self.right.find_max()
 
     def delete_node(self, node):
-        if self.id_node is None:
-            return self.id_node
-        if node < self.id_node:
-            self.left = self.left.delete_node(node)
-        elif node > self.id_node:
-            self.right = self.right.delete_node(node)
-        else:
-            if self.left is None:
-                temp = self.right
-                self = None
-                return temp
-            elif self.right is None:
-                temp = self.left
-                self = None
-                return temp
-            temp = self.right.find_min()
-            self.id_node = temp
-            self.right = self.right.delete_node(temp)
-        return self
+        if not self.findval(node):
+            if self.id_node is None:
+                return self.id_node
+            if node < self.id_node:
+                self.left = self.left.delete_node(node)
+            elif node > self.id_node:
+                self.right = self.right.delete_node(node)
+            else:
+                if self.left is None:
+                    temp = self.right
+                    self = None
+                    return temp
+                elif self.right is None:
+                    temp = self.left
+                    self = None
+                    return temp
+                temp = self.right.find_min()
+                self.id_node = temp
+                self.right = self.right.delete_node(temp)
+            return self
 
     def print_tree(self):
         if self.left:
@@ -81,7 +84,7 @@ class Tree:
 
 
 tr = Tree(5)
-my_list = [5, 65, 3, 1, 5777, 56, 63, 36, 34, 90]
-tr.add_elements(my_list)
-tr.delete_node(56)
+nodes = [8, 3, 15, 1, 6, 14, None, None, None, 4, 7, None, None, 13, None, 12, 16, 17, 20, 18, 19]
+tr.add_elements(nodes)
+tr.delete_node(12)
 tr.print_tree()

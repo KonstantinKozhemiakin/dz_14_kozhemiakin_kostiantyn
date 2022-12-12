@@ -40,14 +40,36 @@ class Tree:
             self.insert(node)
 
     def find_min(self):
-        if self.left:
-            self.left.find_min()
-        if not self.left:
-            return str(self.id_node)
+        if self.left == None:
+            return self.id_node
+        else:
+            return self.left.find_min()
 
     def find_max(self):
-        if self.right:
-            self.right.find_max()
+        if self.right == None:
+            return self.id_node
+        else:
+            return self.right.find_max()
+
+    def delete_node(self, node):
+        if self.id_node is None:
+            return self.id_node
+        if node < self.id_node:
+            self.left = self.left.delete_node(node)
+        elif node > self.id_node:
+            self.right = self.right.delete_node(node)
+        else:
+            if self.left is None:
+                temp = self.right
+                self = None
+                return temp
+            elif self.right is None:
+                temp = self.left
+                self = None
+                return temp
+            temp = self.right.find_min()
+            self.id_node = temp
+            self.right = self.right.delete_node(temp)
         return self
 
     def print_tree(self):
@@ -59,14 +81,7 @@ class Tree:
 
 
 tr = Tree(5)
-my_list = [5, 65, 3, 1, 5777, 56, 35, 90]
+my_list = [5, 65, 3, 1, 5777, 56, 63, 36, 34, 90]
 tr.add_elements(my_list)
-# # tr.print_tree()
-# tr.insert(80)
-# # tr.print_tree()
-# tr.insert(80)
-# # tr.print_tree()
-# tr.insert(80)
-# tr.print_tree()
-# tr.findval(1)
-print(tr.find_min())
+tr.delete_node(56)
+tr.print_tree()

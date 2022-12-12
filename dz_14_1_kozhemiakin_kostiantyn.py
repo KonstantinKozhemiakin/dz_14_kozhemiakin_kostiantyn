@@ -26,11 +26,11 @@ class Tree:
     def findval(self, find_val):
         if find_val < self.id_node:
             if self.left is None:
-                return str(find_val) + " Not Found"
+                return str(find_val)
             return self.left.findval(find_val)
         elif find_val > self.id_node:
             if self.right is None:
-                return str(find_val) + " Not Found"
+                return str(find_val)
             return self.right.findval(find_val)
         else:
             print(str(self.id_node) + ' is found')
@@ -84,7 +84,7 @@ class Tree:
 
 
 tr = Tree(5)
-nodes = [8, 3, 15, 1, 6, 14, None, None, None, 4, 7, None, None, 13, None, 12, 16, 17, 20, 18, 19]
+nodes = [8, 3, 15, 1, 6, 14, None,  7, None, None, 13, 49, 16, 17, 46, 18, 19]
 tr.add_elements(nodes)
 tr.delete_node(12)
 tr.print_tree()
